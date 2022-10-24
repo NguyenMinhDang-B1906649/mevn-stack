@@ -4,13 +4,24 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const router = require("./routes/routes");
+const cookirParser = require("cookie-parser");
 
 const app = express();
 const PORT = process.env.PORT || 2608;
 
 // middleware
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:8080",
+      "http://localhost:4200",
+    ],
+  })
+);
 app.use(express.json());
+app.use(cookirParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("uploads"));
 
